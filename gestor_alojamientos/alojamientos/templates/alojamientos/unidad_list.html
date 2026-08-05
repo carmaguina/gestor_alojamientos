@@ -1,0 +1,28 @@
+{% if user.is_authenticated %}
+    <p>Hola, {{ user.username }}</p>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Cerrar sesión</button>
+    </form>
+{% else %}
+    <a href="{% url 'login' %}">Iniciar sesión</a>
+{% endif %}
+
+<h1>Unidades disponibles</h1>
+
+<a href="{% url 'alojamientos:unidad_create' %}">Crear nueva unidad</a>
+
+<ul>
+    {% for unidad in unidades %}
+        <li>
+            <a href="{% url 'alojamientos:unidad_detail' unidad.pk %}">
+                {{ unidad.nombre }}
+            </a>
+            - Capacidad: {{ unidad.capacidad }}
+            - {% if unidad.activa %}Activa{% else %}Inactiva{% endif %}
+        </li>
+    {% empty %}
+        <li>No hay unidades cargadas.</li>
+    {% endfor %}
+</ul>

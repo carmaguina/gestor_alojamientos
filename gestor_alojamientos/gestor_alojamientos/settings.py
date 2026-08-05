@@ -56,7 +56,7 @@ ROOT_URLCONF = 'gestor_alojamientos.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,4 +122,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configuración de redirecciones para autenticación de usuarios.
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'alojamientos:unidad_list'
+LOGOUT_REDIRECT_URL = 'alojamientos:unidad_list'
 

@@ -1,0 +1,16 @@
+<h1>{{ unidad.nombre }}</h1>
+
+<p><strong>Descripción:</strong> {{ unidad.descripcion }}</p>
+<p><strong>Capacidad:</strong> {{ unidad.capacidad }}</p>
+<p>
+    <strong>Estado:</strong>
+    {% if unidad.activa %}
+        Activa
+    {% else %}
+        Inactiva
+    {% endif %}
+</p>
+
+<a href="{% url 'alojamientos:unidad_update' unidad.pk %}">Editar</a>
+<a href="{% url 'alojamientos:unidad_delete' unidad.pk %}">Eliminar</a>
+<a href="{% url 'alojamientos:unidad_list' %}">Volver a la lista</a>

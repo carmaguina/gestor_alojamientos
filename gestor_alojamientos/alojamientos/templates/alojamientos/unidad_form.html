@@ -1,0 +1,10 @@
+<h1>{% if object %}Editar unidad{% else %}Crear unidad{% endif %}</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Guardar</button>
+</form>
+
+<a href="{% url 'alojamientos:unidad_list' %}">Volver a la lista</a>

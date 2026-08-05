@@ -1,0 +1,10 @@
+<h1>Eliminar unidad</h1>
+
+<p>¿Seguro que querés eliminar la unidad "{{ unidad.nombre }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, eliminar</button>
+</form>
+
+<a href="{% url 'alojamientos:unidad_detail' unidad.pk %}">Cancelar</a>
