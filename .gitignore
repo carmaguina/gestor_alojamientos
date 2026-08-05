@@ -1,0 +1,27 @@
+# Entorno virtual
+venv_django/
+env/
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Django
+db.sqlite3
+*.sqlite3
+media/
+
+# Variables de entorno / secretos
+.env
+
+# VS Code
+.vscode/
+
+# Apuntes privados
+BITACORA_TP.md
+RECOMENDACIONES_TP.md
+TIPS_TP.md
+_apuntes_privados/
