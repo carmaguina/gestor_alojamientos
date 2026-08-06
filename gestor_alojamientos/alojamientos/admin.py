@@ -12,7 +12,7 @@ def marcar_como_inactivas(modeladmin, request, queryset):
 
 class UnidadAdmin(admin.ModelAdmin):
     list_display = ('nombre', 'capacidad', 'activa')
-    search_fields = ('nombre', 'descripcion')
+    search_fields = ('nombre', )
     list_filter = ('activa', 'capacidad')
     actions = [marcar_como_activas, marcar_como_inactivas]
 
