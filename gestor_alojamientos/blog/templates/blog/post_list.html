@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog - Gestor de Alojamientos{% endblock %}
+
+{% block content %}
+    <h2>Blog</h2>
+
+    <p>Publicaciones sobre alojamientos, reservas y turismo en Mar Azul.</p>
+
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'blog:post_detail' post.pk %}">
+                    {{ post.titulo }}
+                </a>
+                - {{ post.fecha_creacion }}
+            </li>
+        {% empty %}
+            <li>No hay publicaciones disponibles.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
