@@ -9,7 +9,6 @@
         <h1>Gestor de Alojamientos</h1>
         <nav>
             <a href="{% url 'alojamientos:unidad_list' %}">Unidades</a>
-            <a href="{% url 'blog:post_list' %}">Blog</a>
             <a href="/admin/">Admin</a>
         </nav>
 
@@ -21,6 +20,7 @@
             </form>
         {% else %}
             <a href="{% url 'login' %}">Iniciar sesion</a>
+            <a href="{% url 'usuarios:registro' %}">Registrarse</a>
         {% endif %}
     </header>
 

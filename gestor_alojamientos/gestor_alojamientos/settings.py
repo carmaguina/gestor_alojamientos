@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'alojamientos',
     'reservas',
     'blog',
+    'usuarios',
 ]
 
 MIDDLEWARE = [

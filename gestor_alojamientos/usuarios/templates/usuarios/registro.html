@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro - Gestor de Alojamientos{% endblock %}
+
+{% block content %}
+    <h2>Registro de usuario</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Registrarme</button>
+    </form>
+
+    <p>
+        <a href="{% url 'login' %}">Ya tengo usuario</a>
+    </p>
+{% endblock %}
