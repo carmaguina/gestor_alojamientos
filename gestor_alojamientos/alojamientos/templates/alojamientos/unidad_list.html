@@ -1,17 +1,18 @@
+﻿{% extends 'base.html' %}
+
+{% block title %}Unidades disponibles{% endblock %}
+
+{% block content %}
+<h2>Unidades disponibles</h2>
+
+<form method="get">
+    <input type="text" name="q" value="{{ query }}" placeholder="Buscar unidad...">
+    <button type="submit">Buscar</button>
+</form>
+
 {% if user.is_authenticated %}
-    <p>Hola, {{ user.username }}</p>
-
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Cerrar sesión</button>
-    </form>
-{% else %}
-    <a href="{% url 'login' %}">Iniciar sesión</a>
+    <p><a href="{% url 'alojamientos:unidad_create' %}">Crear nueva unidad</a></p>
 {% endif %}
-
-<h1>Unidades disponibles</h1>
-
-<a href="{% url 'alojamientos:unidad_create' %}">Crear nueva unidad</a>
 
 <ul>
     {% for unidad in unidades %}
@@ -23,6 +24,7 @@
             - {% if unidad.activa %}Activa{% else %}Inactiva{% endif %}
         </li>
     {% empty %}
-        <li>No hay unidades cargadas.</li>
+        <li>No se encontraron unidades.</li>
     {% endfor %}
 </ul>
+{% endblock %}

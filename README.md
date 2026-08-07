@@ -114,3 +114,16 @@ python manage.py createsuperuser
 ```
 
 Por seguridad, no se incluyen credenciales reales en el repositorio.
+
+## Estructura del proyecto
+
+El repositorio utiliza una carpeta contenedora para el proyecto y, dentro de ella, una carpeta Django donde se encuentra `manage.py`.
+
+Por eso, para ejecutar comandos de Django primero hay que entrar a la carpeta interna:
+
+```bash
+cd gestor_alojamientos
+python manage.py runserver
+```
+
+Esta estructura corresponde a la forma habitual generada por `django-admin startproject nombre_proyecto` y se mantiene documentada para que el proyecto sea reproducible.

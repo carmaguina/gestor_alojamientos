@@ -1,4 +1,9 @@
-<h1>{% if object %}Editar unidad{% else %}Crear unidad{% endif %}</h1>
+﻿{% extends 'base.html' %}
+
+{% block title %}{% if object %}Editar unidad{% else %}Crear unidad{% endif %}{% endblock %}
+
+{% block content %}
+<h2>{% if object %}Editar unidad{% else %}Crear unidad{% endif %}</h2>
 
 <form method="post">
     {% csrf_token %}
@@ -8,3 +13,4 @@
 </form>
 
 <a href="{% url 'alojamientos:unidad_list' %}">Volver a la lista</a>
+{% endblock %}

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Gestor de Alojamientos{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Gestor de Alojamientos</h1>
+        <nav>
+            <a href="{% url 'alojamientos:unidad_list' %}">Unidades</a>
+            <a href="/admin/">Admin</a>
+        </nav>
+
+        {% if user.is_authenticated %}
+            <p>Hola, {{ user.username }}</p>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Cerrar sesion</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Iniciar sesion</a>
+        {% endif %}
+    </header>
+
+    <hr>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

@@ -1,10 +1,16 @@
-<h1>Eliminar unidad</h1>
+﻿{% extends 'base.html' %}
 
-<p>¿Seguro que querés eliminar la unidad "{{ unidad.nombre }}"?</p>
+{% block title %}Eliminar unidad{% endblock %}
+
+{% block content %}
+<h2>Eliminar unidad</h2>
+
+<p>Seguro que queres eliminar la unidad "{{ unidad.nombre }}"?</p>
 
 <form method="post">
     {% csrf_token %}
-    <button type="submit">Sí, eliminar</button>
+    <button type="submit">Si, eliminar</button>
 </form>
 
 <a href="{% url 'alojamientos:unidad_detail' unidad.pk %}">Cancelar</a>
+{% endblock %}
