@@ -1,4 +1,4 @@
-﻿from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
@@ -31,21 +31,24 @@ class UnidadDetailView(DetailView):
     context_object_name = "unidad"
 
 
-class UnidadCreateView(LoginRequiredMixin, CreateView):
+class UnidadCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = "alojamientos.add_unidad"
     model = Unidad
     fields = ["nombre", "descripcion", "capacidad", "activa"]
     template_name = "alojamientos/unidad_form.html"
     success_url = reverse_lazy("alojamientos:unidad_list")
 
 
-class UnidadUpdateView(LoginRequiredMixin, UpdateView):
+class UnidadUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = "alojamientos.change_unidad"
     model = Unidad
     fields = ["nombre", "descripcion", "capacidad", "activa"]
     template_name = "alojamientos/unidad_form.html"
     success_url = reverse_lazy("alojamientos:unidad_list")
 
 
-class UnidadDeleteView(LoginRequiredMixin, DeleteView):
+class UnidadDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = "alojamientos.delete_unidad"
     model = Unidad
     template_name = "alojamientos/unidad_confirm_delete.html"
     success_url = reverse_lazy("alojamientos:unidad_list")
