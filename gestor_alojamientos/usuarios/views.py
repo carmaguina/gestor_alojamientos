@@ -2,8 +2,11 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
 
-from .forms import RegistroUsuarioForm
+from .forms import PerfilForm, RegistroUsuarioForm
+from .models import Perfil
 
 
 class RegistroUsuarioView(CreateView):
@@ -23,3 +26,15 @@ class RegistroUsuarioView(CreateView):
         )
 
         return super().form_valid(form)
+
+class PerfilUpdateView(LoginRequiredMixin, UpdateView):
+    model = Perfil
+    form_class = PerfilForm
+    template_name = 'usuarios/perfil_form.html'
+    success_url = reverse_lazy('usuarios:perfil')
+
+    def get_object(self, queryset=None):
+        perfil, creado = Perfil.objects.get_or_create(
+            usuario=self.request.user
+        )
+        return perfil

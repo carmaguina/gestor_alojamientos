@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-
+from .models import Perfil
 
 class RegistroUsuarioForm(forms.ModelForm):
     password = forms.CharField(
@@ -23,3 +23,17 @@ class RegistroUsuarioForm(forms.ModelForm):
             raise forms.ValidationError('Las contraseñas no coinciden.')
 
         return datos.get('password2')
+
+class PerfilForm(forms.ModelForm):
+    class Meta:
+        model = Perfil
+        fields = ('telefono', 'ciudad', 'fecha_nacimiento', 'bio')
+        labels = {
+            'telefono': 'Teléfono',
+            'ciudad': 'Ciudad',
+            'fecha_nacimiento': 'Fecha de nacimiento',
+            'bio': 'Biografía',
+        }
+        widgets = {
+            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
+        }

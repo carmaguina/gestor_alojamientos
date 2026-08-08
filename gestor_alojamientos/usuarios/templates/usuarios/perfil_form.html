@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Mi perfil - Gestor de Alojamientos{% endblock %}
+
+{% block content %}
+    <h2>Mi perfil</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Guardar perfil</button>
+    </form>
+{% endblock %}

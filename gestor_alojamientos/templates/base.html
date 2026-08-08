@@ -9,11 +9,17 @@
         <h1>Gestor de Alojamientos</h1>
         <nav>
             <a href="{% url 'alojamientos:unidad_list' %}">Unidades</a>
+            <a href="{% url 'blog:post_list' %}">Blog</a>
             <a href="/admin/">Admin</a>
         </nav>
 
         {% if user.is_authenticated %}
             <p>Hola, {{ user.username }}</p>
+
+            <p>
+                <a href="{% url 'usuarios:perfil' %}">Mi perfil</a>
+            </p>
+
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
                 <button type="submit">Cerrar sesion</button>
