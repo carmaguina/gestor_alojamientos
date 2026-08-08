@@ -8,8 +8,11 @@
     <header>
         <h1>Gestor de Alojamientos</h1>
         <nav>
+            <a href="{% url 'paginas:inicio' %}">Inicio</a>
             <a href="{% url 'alojamientos:unidad_list' %}">Unidades</a>
             <a href="{% url 'blog:post_list' %}">Blog</a>
+            <a href="{% url 'paginas:acerca' %}">Acerca de</a>
+            <a href="{% url 'paginas:contacto' %}">Contacto</a>
             <a href="/admin/">Admin</a>
         </nav>
 

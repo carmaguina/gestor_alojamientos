@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Gestor de Alojamientos{% endblock %}
+
+{% block content %}
+    <h2>Bienvenidos a Gestor de Alojamientos</h2>
+
+    <p>
+        Esta aplicacion permite consultar unidades disponibles, leer publicaciones
+        del blog y gestionar alojamientos turisticos desde el panel interno.
+    </p>
+
+    <p>
+        <a href="{% url 'alojamientos:unidad_list' %}">Ver unidades disponibles</a>
+    </p>
+
+    <p>
+        <a href="{% url 'blog:post_list' %}">Ver blog</a>
+    </p>
+{% endblock %}

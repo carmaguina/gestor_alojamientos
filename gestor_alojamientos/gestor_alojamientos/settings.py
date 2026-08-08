@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'reservas',
     'blog',
     'usuarios',
+    'paginas',
 ]
 
 MIDDLEWARE = [
