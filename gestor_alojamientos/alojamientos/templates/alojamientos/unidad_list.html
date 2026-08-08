@@ -5,26 +5,43 @@
 {% block content %}
 <h2>Unidades disponibles</h2>
 
-<form method="get">
-    <input type="text" name="q" value="{{ query }}" placeholder="Buscar unidad...">
-    <button type="submit">Buscar</button>
-</form>
+<section class="panel">
+    <form class="search-row" method="get">
+        <input type="text" name="q" value="{{ query }}" placeholder="Buscar unidad...">
+        <button type="submit">Buscar</button>
+    </form>
 
-{% if user.is_authenticated %}
-    <p><a href="{% url 'alojamientos:unidad_create' %}">Crear nueva unidad</a></p>
-{% endif %}
+    {% if user.is_authenticated %}
+        <p>
+            <a class="button" href="{% url 'alojamientos:unidad_create' %}">Crear nueva unidad</a>
+        </p>
+    {% endif %}
 
-<ul>
-    {% for unidad in unidades %}
-        <li>
-            <a href="{% url 'alojamientos:unidad_detail' unidad.pk %}">
-                {{ unidad.nombre }}
-            </a>
-            - Capacidad: {{ unidad.capacidad }}
-            - {% if unidad.activa %}Activa{% else %}Inactiva{% endif %}
-        </li>
-    {% empty %}
-        <li>No se encontraron unidades.</li>
-    {% endfor %}
-</ul>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Unidad</th>
+                <th>Capacidad</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for unidad in unidades %}
+                <tr>
+                    <td>{{ unidad.nombre }}</td>
+                    <td>{{ unidad.capacidad }}</td>
+                    <td>{% if unidad.activa %}Activa{% else %}Inactiva{% endif %}</td>
+                    <td>
+                        <a class="button" href="{% url 'alojamientos:unidad_detail' unidad.pk %}">Ver</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td class="empty" colspan="4">No se encontraron unidades.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 {% endblock %}

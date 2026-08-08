@@ -5,14 +5,16 @@
 {% block content %}
     <h2>Registro de usuario</h2>
 
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+    <section class="panel form-card">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-        <button type="submit">Registrarme</button>
-    </form>
+            <button type="submit">Registrarme</button>
+        </form>
 
-    <p>
-        <a href="{% url 'login' %}">Ya tengo usuario</a>
-    </p>
+        <p>
+            <a href="{% url 'login' %}">Ya tengo usuario</a>
+        </p>
+    </section>
 {% endblock %}

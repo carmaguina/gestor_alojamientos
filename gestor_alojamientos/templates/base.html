@@ -1,41 +1,43 @@
-﻿<!DOCTYPE html>
+{% load static %}
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Gestor de Alojamientos{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Gestor de Alojamientos</h1>
-        <nav>
-            <a href="{% url 'paginas:inicio' %}">Inicio</a>
-            <a href="{% url 'alojamientos:unidad_list' %}">Unidades</a>
-            <a href="{% url 'blog:post_list' %}">Blog</a>
-            <a href="{% url 'paginas:acerca' %}">Acerca de</a>
-            <a href="{% url 'paginas:contacto' %}">Contacto</a>
-            <a href="/admin/">Admin</a>
-        </nav>
+    <header class="site-header">
+        <div class="topbar">
+            <a class="brand" href="{% url 'paginas:inicio' %}">Gestor de Alojamientos</a>
+            <nav class="main-nav">
+                <a href="{% url 'paginas:inicio' %}">Inicio</a>
+                <a href="{% url 'alojamientos:unidad_list' %}">Unidades</a>
+                <a href="{% url 'blog:post_list' %}">Blog</a>
+                <a href="{% url 'paginas:acerca' %}">Acerca de</a>
+                <a href="{% url 'paginas:contacto' %}">Contacto</a>
+                <a href="/admin/">Admin</a>
+            </nav>
+        </div>
 
-        {% if user.is_authenticated %}
-            <p>Hola, {{ user.username }}</p>
-
-            <p>
+        <div class="user-bar">
+            {% if user.is_authenticated %}
+                <span>Hola, {{ user.username }}</span>
                 <a href="{% url 'usuarios:perfil' %}">Mi perfil</a>
-            </p>
 
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit">Cerrar sesion</button>
-            </form>
-        {% else %}
-            <a href="{% url 'login' %}">Iniciar sesion</a>
-            <a href="{% url 'usuarios:registro' %}">Registrarse</a>
-        {% endif %}
+                <form class="logout-form" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Cerrar sesion</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Iniciar sesion</a>
+                <a href="{% url 'usuarios:registro' %}">Registrarse</a>
+            {% endif %}
+        </div>
     </header>
 
-    <hr>
-
-    <main>
+    <main class="page">
         {% block content %}{% endblock %}
     </main>
 </body>

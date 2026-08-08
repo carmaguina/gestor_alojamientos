@@ -5,12 +5,16 @@
 {% block content %}
 <h2>Iniciar sesion</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+<section class="panel form-card">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-    <button type="submit">Entrar</button>
-</form>
+        <button type="submit">Entrar</button>
+    </form>
 
-<a href="{% url 'alojamientos:unidad_list' %}">Volver a unidades</a>
+    <p>
+        <a href="{% url 'alojamientos:unidad_list' %}">Volver a unidades</a>
+    </p>
+</section>
 {% endblock %}

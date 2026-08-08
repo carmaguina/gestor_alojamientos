@@ -5,20 +5,26 @@
 {% block content %}
 <h2>{{ unidad.nombre }}</h2>
 
-<p><strong>Descripcion:</strong> {{ unidad.descripcion }}</p>
-<p><strong>Capacidad:</strong> {{ unidad.capacidad }}</p>
-<p>
-    <strong>Estado:</strong>
-    {% if unidad.activa %}
-        Activa
-    {% else %}
-        Inactiva
-    {% endif %}
-</p>
+<section class="panel">
+    <div class="detail-list">
+        <p><strong>Descripcion:</strong> {{ unidad.descripcion }}</p>
+        <p><strong>Capacidad:</strong> {{ unidad.capacidad }}</p>
+        <p>
+            <strong>Estado:</strong>
+            {% if unidad.activa %}
+                Activa
+            {% else %}
+                Inactiva
+            {% endif %}
+        </p>
+    </div>
 
-{% if user.is_authenticated %}
-    <a href="{% url 'alojamientos:unidad_update' unidad.pk %}">Editar</a>
-    <a href="{% url 'alojamientos:unidad_delete' unidad.pk %}">Eliminar</a>
-{% endif %}
-<a href="{% url 'alojamientos:unidad_list' %}">Volver a la lista</a>
+    <div class="actions">
+        {% if user.is_authenticated %}
+            <a class="button button-warning" href="{% url 'alojamientos:unidad_update' unidad.pk %}">Editar</a>
+            <a class="button button-danger" href="{% url 'alojamientos:unidad_delete' unidad.pk %}">Eliminar</a>
+        {% endif %}
+        <a class="button button-secondary" href="{% url 'alojamientos:unidad_list' %}">Volver a la lista</a>
+    </div>
+</section>
 {% endblock %}

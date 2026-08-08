@@ -5,11 +5,13 @@
 {% block content %}
     <h2>{{ post.titulo }}</h2>
 
-    <p><strong>Fecha:</strong> {{ post.fecha_creacion }}</p>
+    <section class="panel">
+        <p><strong>Fecha:</strong> {{ post.fecha_creacion }}</p>
 
-    <p>{{ post.contenido }}</p>
+        <p>{{ post.contenido }}</p>
 
-    <p>
-        <a href="{% url 'blog:post_list' %}">Volver al blog</a>
-    </p>
+        <p>
+            <a class="button button-secondary" href="{% url 'blog:post_list' %}">Volver al blog</a>
+        </p>
+    </section>
 {% endblock %}

@@ -5,12 +5,16 @@
 {% block content %}
 <h2>Eliminar unidad</h2>
 
-<p>Seguro que queres eliminar la unidad "{{ unidad.nombre }}"?</p>
+<section class="panel form-card">
+    <p>Seguro que queres eliminar la unidad "{{ unidad.nombre }}"?</p>
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Si, eliminar</button>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        <button class="button-danger" type="submit">Si, eliminar</button>
+    </form>
 
-<a href="{% url 'alojamientos:unidad_detail' unidad.pk %}">Cancelar</a>
+    <p>
+        <a href="{% url 'alojamientos:unidad_detail' unidad.pk %}">Cancelar</a>
+    </p>
+</section>
 {% endblock %}

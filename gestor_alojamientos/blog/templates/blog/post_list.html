@@ -7,16 +7,19 @@
 
     <p>Publicaciones sobre alojamientos, reservas y turismo en Mar Azul.</p>
 
-    <ul>
+    <div class="card-grid">
         {% for post in posts %}
-            <li>
-                <a href="{% url 'blog:post_detail' post.pk %}">
-                    {{ post.titulo }}
+            <article class="card">
+                <h3>{{ post.titulo }}</h3>
+                <p>{{ post.fecha_creacion }}</p>
+                <a class="button" href="{% url 'blog:post_detail' post.pk %}">
+                    Leer publicacion
                 </a>
-                - {{ post.fecha_creacion }}
-            </li>
+            </article>
         {% empty %}
-            <li>No hay publicaciones disponibles.</li>
+            <article class="card">
+                <p>No hay publicaciones disponibles.</p>
+            </article>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
