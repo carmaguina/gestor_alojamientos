@@ -2,7 +2,7 @@
 
 Gestor de Alojamientos es una aplicacion web desarrollada en Django para la gestion interna de alojamientos turisticos pequenos, como cabanas, suites o departamentos de alquiler temporal.
 
-En esta etapa, el proyecto permite administrar unidades disponibles, consultar alojamientos, buscar unidades por nombre y comenzar a estructurar la gestion de huespedes y reservas.
+En esta etapa, el proyecto permite administrar unidades disponibles, consultar alojamientos, buscar unidades por nombre, leer publicaciones del blog, registrarse, iniciar sesion, editar un perfil de usuario y enviar un formulario de contacto.
 
 ## Repositorio
 
@@ -19,7 +19,12 @@ https://github.com/carmaguina/gestor_alojamientos.git
   - eliminacion de unidad
 - Busqueda dinamica de unidades por nombre mediante metodo GET y ORM con `nombre__icontains`.
 - Templates reutilizables con herencia desde `base.html`.
+- Paginas publicas de inicio, acerca de y contacto.
+- Formulario de contacto con validacion del mensaje.
+- Blog publico con listado y detalle de publicaciones.
 - Login y logout de usuarios.
+- Registro de usuarios desde la aplicacion.
+- Perfil editable para usuarios autenticados.
 - Proteccion de vistas sensibles con `LoginRequiredMixin` y permisos especificos de Django.
 - Panel de administracion personalizado con `ModelAdmin`.
 - Busqueda, filtros y columnas configuradas en el admin de unidades.
@@ -44,7 +49,10 @@ Proyecto_Final_Gestor_Alojamientos/
 |-- gestor_alojamientos/
 |   |-- manage.py
 |   |-- alojamientos/
+|   |-- blog/
+|   |-- paginas/
 |   |-- reservas/
+|   |-- usuarios/
 |   |-- gestor_alojamientos/
 |   `-- templates/
 |-- requirements.txt
@@ -128,7 +136,7 @@ python manage.py runserver
 10. Abrir en el navegador:
 
 ```text
-http://127.0.0.1:8000/alojamientos/
+http://127.0.0.1:8000/
 ```
 
 ## Dependencias declaradas
@@ -163,7 +171,9 @@ El repositorio incluye migraciones para reproducir la estructura de base de dato
 ```text
 gestor_alojamientos/alojamientos/migrations/0001_initial.py
 gestor_alojamientos/alojamientos/migrations/0002_alter_unidad_options.py
+gestor_alojamientos/blog/migrations/0001_initial.py
 gestor_alojamientos/reservas/migrations/0001_initial.py
+gestor_alojamientos/usuarios/migrations/0001_initial.py
 ```
 
 Comandos utiles para verificar migraciones:
@@ -179,11 +189,18 @@ python manage.py check
 
 | URL | Descripcion | Acceso |
 | --- | --- | --- |
+| `/` | Pagina de inicio | Publico |
 | `/alojamientos/` | Listado y busqueda de unidades | Publico |
 | `/alojamientos/<id>/` | Detalle de una unidad | Publico |
 | `/alojamientos/crear/` | Crear unidad | Requiere login y permiso `alojamientos.add_unidad` |
 | `/alojamientos/<id>/editar/` | Editar unidad | Requiere login y permiso `alojamientos.change_unidad` |
 | `/alojamientos/<id>/eliminar/` | Eliminar unidad | Requiere login y permiso `alojamientos.delete_unidad` |
+| `/blog/` | Listado publico de posts publicados | Publico |
+| `/blog/<id>/` | Detalle de un post publicado | Publico |
+| `/acerca/` | Pagina institucional del proyecto | Publico |
+| `/contacto/` | Formulario de contacto | Publico |
+| `/registro/` | Registro de usuario | Publico |
+| `/perfil/` | Edicion del perfil propio | Usuario autenticado |
 | `/login/` | Inicio de sesion | Publico |
 | `/logout/` | Cierre de sesion por POST | Usuario autenticado |
 | `/admin/` | Panel de administracion | Usuario staff/superusuario |
@@ -194,10 +211,10 @@ El proyecto utiliza el sistema de usuarios, grupos y permisos de Django.
 
 | Tipo de usuario | Permisos esperados | Resultado esperado |
 | --- | --- | --- |
-| Visitante sin sesion | Sin permisos | Puede ver listado, detalle y busqueda. Si intenta crear, editar o eliminar, Django lo redirige al login. |
-| Usuario comun autenticado | Sin permisos de `Unidad` | Puede iniciar sesion, pero no puede crear, editar ni eliminar unidades si no tiene permisos asignados. |
+| Visitante sin sesion | Sin permisos | Puede ver listado, detalle, busqueda, blog, paginas publicas y contacto. Si intenta crear, editar o eliminar unidades, Django lo redirige al login. |
+| Usuario comun autenticado | Sin permisos de `Unidad` | Puede iniciar sesion y editar su perfil, pero no puede crear, editar ni eliminar unidades si no tiene permisos asignados. |
 | Operador / staff | `add_unidad`, `change_unidad`, `view_unidad` | Puede acceder al admin si tiene `is_staff=True` y gestionar unidades segun permisos asignados. |
-| Administrador / superusuario | Todos los permisos | Puede gestionar unidades, huespedes, reservas, usuarios, grupos y permisos. |
+| Administrador / superusuario | Todos los permisos | Puede gestionar unidades, huespedes, reservas, posts, perfiles, usuarios, grupos y permisos. |
 
 Para crear grupos desde el admin:
 
@@ -221,9 +238,18 @@ Las vistas de crear, editar y eliminar unidades estan protegidas en el codigo co
 | Listar unidades | `/alojamientos/` | Muestra unidades cargadas |
 | Buscar unidad | `/alojamientos/?q=d` | Filtra unidades por nombre |
 | Ver detalle | `/alojamientos/1/` | Muestra datos de la unidad |
+| Ver blog | `/blog/` | Muestra posts publicados |
+| Ver detalle de post | `/blog/1/` | Muestra titulo, fecha y contenido |
+| Registrar usuario | `/registro/` | Crea un usuario y redirige al login |
+| Editar perfil | `/perfil/` | Permite completar telefono, ciudad, fecha de nacimiento y bio |
+| Enviar contacto | `/contacto/` | Valida el mensaje y muestra confirmacion |
 | Crear sin sesion | `/alojamientos/crear/` | Redirige al login con parametro `next` |
 | Crear con permisos | `/alojamientos/crear/` | Permite guardar una unidad |
 | Admin personalizado | `/admin/alojamientos/unidad/` | Muestra columnas, filtros y busqueda |
+
+## Estado de despliegue
+
+El proyecto esta preparado para ejecutarse de forma local desde cero siguiendo las instrucciones de instalacion. Para un despliegue publico se deben configurar variables de entorno reales, usar `DEBUG=False`, definir `ALLOWED_HOSTS` y servir archivos estaticos con la configuracion correspondiente del hosting elegido.
 
 ## Seguridad
 
@@ -238,6 +264,6 @@ Las vistas de crear, editar y eliminar unidades estan protegidas en el codigo co
 
 - CRUD completo de reservas.
 - CRUD completo de huespedes.
-- Registro de usuarios desde la aplicacion.
 - Mejoras visuales de templates.
 - Pruebas automatizadas para vistas y permisos.
+- Configuracion de despliegue en un hosting publico.
