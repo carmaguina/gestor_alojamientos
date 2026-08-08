@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from .forms import ContactoForm
+from .models import MensajeContacto
 
 
 def inicio(request):
@@ -17,6 +18,11 @@ def contacto(request):
         form = ContactoForm(request.POST)
 
         if form.is_valid():
+            MensajeContacto.objects.create(
+                nombre=form.cleaned_data['nombre'],
+                email=form.cleaned_data['email'],
+                mensaje=form.cleaned_data['mensaje']
+            )
             messages.success(
                 request,
                 'Tu mensaje fue enviado correctamente.'
